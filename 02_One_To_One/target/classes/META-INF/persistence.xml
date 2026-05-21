@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Root element of JPA configuration. Defines persistence units and database 
+	configuration. -->
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+	version="3.0">
+
+	<!-- Persistence Unit: A logical group of entity classes and database
+	configuration. 
+		This name is used while creating EntityManagerFactory. Example:
+	Persistence.createEntityManagerFactory("employee-unit"); -->
+	<persistence-unit name="employee-unit">
+
+		<!-- Registering Entity class with JPA. Hibernate will manage this class 
+			and map it to the database table. Without this entry, Hibernate may not detect 
+			the entity and you may get: UnknownEntityTypeException -->
+		<class>com.borntocode.main.entity.UserDetails</class>
+		<class>com.borntocode.main.entity.AddressDetails</class>
+
+		<properties>
+
+			<!-- JDBC Driver class used to connect to the database. This tells
+			Hibernate 
+				which driver to use. MySQL driver: com.mysql.cj.jdbc.Driver -->
+			<property name="jakarta.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+
+			<!-- Database connection URL. Format:
+			jdbc:mysql://hostname:port/databasename 
+				Here: localhost = database server 3306 = MySQL default port msedcldb = database 
+				name -->
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/msedcldb" />
+
+			<!-- Database username used to connect to MySQL -->
+			<property name="jakarta.persistence.jdbc.user" value="root" />
+
+			<!-- Database password for the above user -->
+			<property name="jakarta.persistence.jdbc.password"
+				value="root" />
+
+			<!-- Shows generated SQL queries in console. Very useful for
+			debugging 
+				and learning Hibernate. Example output: select * from employee_details insert 
+				into employee_details (...) -->
+			<property name="hibernate.show_sql" value="true" />
+
+			<!-- Formats SQL queries in readable format in console. Without
+			this: 
+				select * from employee_details With formatting: select * from employee_details -->
+			<property name="hibernate.format_sql" value="true" />
+
+			<!-- Schema generation strategy. Options: 
+				create → Drops and recreates tables every time application starts 
+				create-drop → Creates tables at start and drops them on shutdown 
+				update → Updates schema automatically if needed 
+				validate → Only validates schema (no changes) 
+				none → Hibernate will not modify database schema Here 'none' 
+				means: Hibernate will use existing tables and will not create/update them. -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+		</properties>
+
+	</persistence-unit>
+
+</persistence>
